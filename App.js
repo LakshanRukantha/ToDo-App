@@ -47,11 +47,10 @@ export default function App() {
     >
       <SafeAreaView style={styles.container}>
         <Header />
-        <View>
+        <View style={styles.content}>
           <TodoForm addTodoHandler={addTodoHandler} />
-          <View>
+          <View style={styles.todoList}>
             <FlatList
-              contentContainerStyle={{ paddingBottom: 240 }}
               data={todos}
               renderItem={({ item }) => {
                 return (
@@ -70,13 +69,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  content: {
+    flex: 1,
+  },
   todoList: {
-    padding: 20,
+    flex: 1,
+    marginVertical: 20,
   },
   todoItem: {
     padding: 10,
     borderRadius: 5,
-    marginTop: 10,
     fontSize: 18,
     textTransform: "capitalize",
     color: "white",

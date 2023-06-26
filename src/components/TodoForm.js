@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     gap: 10,
-    padding: 20,
+    paddingHorizontal: 20,
+    marginTop: 20,
   },
   textInput: {
     flex: 1,
