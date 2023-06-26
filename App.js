@@ -1,27 +1,85 @@
-import { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Alert,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import Header from "./src/components/Header";
+import TodoForm from "./src/components/TodoForm";
+import TodoItem from "./src/components/TodoItem";
 
 export default function App() {
-  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([
+    { text: "Fix bug on navbar", key: "1" },
+    { text: "Develop a simple app", key: "2" },
+  ]);
+
+  const addTodoHandler = (todoText) => {
+    if (todoText.length > 3 && todoText.length < 20) {
+      setTodos((prevTodos) => {
+        return [
+          ...prevTodos,
+          { text: todoText, key: Math.random().toString() },
+        ];
+      });
+    } else {
+      Alert.alert("OOPS!", "Todos must be between 3 and 20 characters long", [
+        { text: "Understood" },
+      ]);
+    }
+  };
+
+  const deleteTodoHandler = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.key != key);
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Count: {count}</Text>
-      <Button title="Click Me" onPress={() => setCount(count + 1)} />
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <SafeAreaView style={styles.container}>
+        <Header />
+        <View>
+          <TodoForm addTodoHandler={addTodoHandler} />
+          <View>
+            <FlatList
+              contentContainerStyle={{ paddingBottom: 240 }}
+              data={todos}
+              renderItem={({ item }) => {
+                return (
+                  <TodoItem item={item} deleteTodoHandler={deleteTodoHandler} />
+                );
+              }}
+            />
+          </View>
+        </View>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "teal",
-    alignItems: "center",
-    gap: 40,
-    justifyContent: "center",
   },
-  text: {
-    fontSize: 40,
+  todoList: {
+    padding: 20,
+  },
+  todoItem: {
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    fontSize: 18,
+    textTransform: "capitalize",
     color: "white",
-    fontFamily: "Roboto",
+    backgroundColor: "lightsalmon",
   },
 });
