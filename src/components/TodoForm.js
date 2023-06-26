@@ -1,5 +1,7 @@
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
+import { Button } from "react-native-elements";
 import React, { useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const TodoForm = ({ addTodoHandler }) => {
   const [todoText, setTodoText] = useState("");
@@ -12,9 +14,16 @@ const TodoForm = ({ addTodoHandler }) => {
         onChangeText={(text) => setTodoText(text)}
       />
       <Button
-        style={styles.button}
-        color="salmon"
-        title="Add Todo"
+        buttonStyle={styles.button}
+        icon={
+          <MaterialIcons
+            style={{ marginRight: 10 }}
+            name="add-task"
+            size={24}
+            color="white"
+          />
+        }
+        title={`Add Todo`}
         onPress={() => {
           addTodoHandler(todoText);
           setTodoText("");
@@ -33,6 +42,9 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingHorizontal: 20,
     marginTop: 20,
+  },
+  button: {
+    backgroundColor: "salmon",
   },
   textInput: {
     flex: 1,
