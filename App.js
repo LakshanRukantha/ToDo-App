@@ -19,7 +19,7 @@ export default function App() {
   ]);
 
   const addTodoHandler = (todoText) => {
-    if (todoText.length > 3 && todoText.length < 20) {
+    if (todoText.length > 3 && todoText.length < 150) {
       setTodos((prevTodos) => {
         return [
           ...prevTodos,
@@ -27,7 +27,7 @@ export default function App() {
         ];
       });
     } else {
-      Alert.alert("OOPS!", "Todos must be between 3 and 20 characters long", [
+      Alert.alert("Oops!", "Todos must be between 3 and 150 characters long", [
         { text: "Understood" },
       ]);
     }

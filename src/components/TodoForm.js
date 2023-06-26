@@ -9,7 +9,7 @@ const TodoForm = ({ addTodoHandler }) => {
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
-        placeholder="Add Todo..."
+        placeholder="Add a new task..."
         value={todoText}
         onChangeText={(text) => setTodoText(text)}
       />
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    color: "#222",
     fontSize: 18,
     borderBottomWidth: 2,
     borderBottomColor: "lightsalmon",
