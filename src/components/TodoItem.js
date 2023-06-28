@@ -31,6 +31,7 @@ export default function TodoItem({ item, deleteTodoHandler }) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    paddingHorizontal: 20,
     flexDirection: "row",
     marginTop: 10,
     alignItems: "center",

@@ -5,18 +5,14 @@ import {
   FlatList,
   Alert,
   SafeAreaView,
-  TouchableWithoutFeedback,
-  Keyboard,
+  StatusBar,
 } from "react-native";
 import Header from "./src/components/Header";
 import TodoForm from "./src/components/TodoForm";
 import TodoItem from "./src/components/TodoItem";
 
 export default function App() {
-  const [todos, setTodos] = useState([
-    { text: "Fix bug on navbar", key: "1" },
-    { text: "Develop a simple app", key: "2" },
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const addTodoHandler = (todoText) => {
     if (todoText.length > 3 && todoText.length < 150) {
@@ -40,12 +36,8 @@ export default function App() {
   };
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
       <SafeAreaView style={styles.container}>
+        <StatusBar hidden={false} barStyle={"default"} />
         <Header />
         <View style={styles.content}>
           <TodoForm addTodoHandler={addTodoHandler} />
@@ -61,7 +53,6 @@ export default function App() {
           </View>
         </View>
       </SafeAreaView>
-    </TouchableWithoutFeedback>
   );
 }
 
