@@ -1,20 +1,38 @@
+import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function TodoItem({ item, deleteTodoHandler }) {
+  const [completed, setCompleted] = useState(false);
+
+  const toggleComplete = () => {
+    setCompleted(!completed);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.taskGroup}>
-        <FontAwesome5 name="tasks" size={18} color="#555" />
-        <Text style={styles.text} numberOfLines={5} ellipsizeMode="tail">
+        <FontAwesome5
+          name={completed ? "check-circle" : "tasks"}
+          size={18}
+          color={completed ? "green" : "#555"}
+        />
+        <Text
+          style={[styles.text, completed && styles.completedText]}
+          numberOfLines={5}
+          ellipsizeMode="tail"
+        >
           {item.text}
         </Text>
       </View>
       <View style={styles.icons}>
-        <TouchableOpacity>
-          <MaterialIcons name="check" size={24} color="green" />
+        <TouchableOpacity onPress={toggleComplete}>
+          <MaterialIcons
+            name={completed ? "undo" : "check"}
+            size={24}
+            color={completed ? "#555" : "green"}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -37,6 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 5,
+    minHeight: 50,
     marginHorizontal: 20,
     borderColor: "lightsalmon",
     borderWidth: 1,
@@ -54,6 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textTransform: "capitalize",
     color: "#333",
+  },
+  completedText: {
+    textDecorationLine: "line-through",
+    fontStyle: "italic",
+    color: "#555",
   },
   icons: {
     minWidth: 60,

@@ -30,29 +30,38 @@ export default function App() {
   };
 
   const deleteTodoHandler = (key) => {
-    setTodos((prevTodos) => {
-      return prevTodos.filter((todo) => todo.key != key);
-    });
+    Alert.alert("Delete Todo", "Are you sure you want to delete this todo?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: () => {
+          setTodos((prevTodos) => {
+            return prevTodos.filter((todo) => todo.key != key);
+          });
+        },
+      },
+    ]);
   };
 
   return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar hidden={false} barStyle={"default"} />
-        <Header />
-        <View style={styles.content}>
-          <TodoForm addTodoHandler={addTodoHandler} />
-          <View style={styles.todoList}>
-            <FlatList
-              data={todos}
-              renderItem={({ item }) => {
-                return (
-                  <TodoItem item={item} deleteTodoHandler={deleteTodoHandler} />
-                );
-              }}
-            />
-          </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar hidden={false} barStyle={"default"} />
+      <Header />
+      <View style={styles.content}>
+        <TodoForm addTodoHandler={addTodoHandler} />
+        <View style={styles.todoList}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => {
+              return (
+                <TodoItem item={item} deleteTodoHandler={deleteTodoHandler} />
+              );
+            }}
+          />
         </View>
-      </SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 }
 
